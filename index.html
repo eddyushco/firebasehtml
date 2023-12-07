@@ -1,0 +1,212 @@
+<html>
+<head>
+    <!-- Agrega los estilos CSS para el cuadro de diálogo -->
+    <style>
+        #dialog-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        #dialog-box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        #dialog-box input {
+            margin-bottom: 10px;
+        }
+        #data-table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #data-table th, #data-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        #data-table th {
+            background-color: #f2f2f2;
+        }
+        .edit-btn, .delete-btn {
+            cursor: pointer;
+            padding: 5px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <form id="crud-form">
+        <button type="button" onclick="abrirDialogo()">Nuevo Producto</button>
+    </form>
+
+    <!-- Cuadro de diálogo -->
+    <div id="dialog-overlay">
+        <div id="dialog-box">
+            <label for="cedula-dialog">Cedula:</label>
+            <input type="number" id="cedula-dialog">
+            <label for="nombre-dialog">Nombre:</label>
+            <input type="text" id="nombre-dialog">
+            <label for="genero-dialog">Genero:</label>
+            <input type="text" id="genero-dialog">
+            <label for="admision-dialog">Año de Admision:</label>
+            <input type="number" id="admision-dialog">
+            <label for="telefono-dialog">Telefono:</label>
+            <input type="number" id="telefono-dialog">
+            <label for="correo-dialog">Correo:</label>
+            <input type="text" id="correo-dialog">
+            <button onclick="guardarRegistro()">Guardar</button>
+            <button onclick="cerrarDialogo()">Cancelar</button>
+        </div>
+    </div>
+    <table id="data-table">
+        <thead>
+            <tr>
+                <th>CEDULA</th>
+                <th>NOMBRE</th>
+                <th>GENERO</th>
+                <th>AÑO DE ADMISION</th>
+                <th>TELEFONO</th>
+                <th>CORREO</th>
+                <th>ACCIONES</th>
+            </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+    </table>
+    <script type="module">
+        // Importa las funciones necesarias de Firebase
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getDatabase, ref, push, onValue, remove, update } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+        // Configuración de Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyCetjGQE4D1bI6s9_Jx_XAjvvVBrb6Sj0M",
+            authDomain: "proyecto1-8cb8a.firebaseapp.com",
+            databaseURL: "https://proyecto1-8cb8a-default-rtdb.firebaseio.com",
+            projectId: "proyecto1-8cb8a",
+            storageBucket: "proyecto1-8cb8a.appspot.com",
+            messagingSenderId: "126838121015",
+            appId: "1:126838121015:web:ec14f228576ede7c88d5b2"
+        };
+        // Inicializa Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        const tableBody = document.getElementById('table-body');
+        
+        // Función para abrir el cuadro de diálogo
+        window.abrirDialogo = function () {
+            document.getElementById('dialog-overlay').style.display = 'flex';
+        }
+
+        // Función para cerrar el cuadro de diálogo
+        window.cerrarDialogo = function () {
+            document.getElementById('dialog-overlay').style.display = 'none';
+        }
+        // Función para guardar el registro en Firebase
+        window.guardarRegistro = function () {
+            const cedula = document.getElementById("cedula-dialog").value;
+            const nombre = document.getElementById("nombre-dialog").value;
+            const genero = document.getElementById("genero-dialog").value;
+            const ano = document.getElementById("admision-dialog").value;
+            const telefono = document.getElementById("telefono-dialog").value;
+            const correo = document.getElementById("correo-dialog").value;
+
+            push(
+                ref(database, 'Ushco'),
+                {
+                    Cedula: cedula,
+                    Nombre: nombre,
+                    Genero: genero,
+                    Admision: ano,
+                    Telefono: telefono,
+                    Correo: correo
+                }
+            );
+
+            // Cierra el cuadro de diálogo después de guardar
+            cerrarDialogo();
+            document.getElementById("cedula-dialog").value= "";
+            document.getElementById("nombre-dialog").value= "";
+            document.getElementById("genero-dialog").value= "";
+            document.getElementById("admision-dialog").value= "";
+            document.getElementById("telefono-dialog").value= "";
+            document.getElementById("correo-dialog").value= "";
+        }
+
+        window.editarRegistro = function (key, nombre, edad) {
+            // Rellena el cuadro de diálogo con los datos del registro a editar
+            document.getElementById("nombre-dialog").value = nombre;
+            document.getElementById("edad-dialog").value = edad;
+
+            // Cambia la función del botón Guardar para que actualice en lugar de agregar
+            const guardarButton = document.querySelector("#dialog-box button:first-of-type");
+            guardarButton.innerHTML = "Actualizar";
+            guardarButton.onclick = function () {
+                actualizarRegistro(key);
+            };
+
+            // Muestra el cuadro de diálogo
+            abrirDialogo();
+        }
+        function actualizarRegistro(key) {
+            const nombre = document.getElementById("nombre-dialog").value;
+            const edad = document.getElementById("edad-dialog").value;
+
+            // Actualiza los datos en la base de datos
+            update(ref(database, `Ushco/${key}`), {
+                name: nombre,
+                age: edad
+            });
+
+            // Restaura la función original del botón Guardar
+            const guardarButton = document.querySelector("#dialog-box button:first-of-type");
+            guardarButton.innerHTML = "Guardar";
+            guardarButton.onclick = function () {
+                guardarRegistro();
+            };
+
+            // Cierra el cuadro de diálogo después de actualizar
+            cerrarDialogo();
+            document.getElementById("nombre-dialog").value = "";
+            document.getElementById("edad-dialog").value = "";
+        }
+        
+        
+        function mostrarDatosEnTabla(snapshot) {
+            tableBody.innerHTML = '';
+            snapshot.forEach((childSnapshot) => {
+                const data = childSnapshot.val();
+                const key = childSnapshot.key;
+                const row = `<tr>
+                                <td>${data.name}</td>
+                                <td>${data.age}</td>
+                                <td>
+                                    <span class="edit-btn" onclick="editarRegistro('${key}', '${data.name}', '${data.age}')">&#9998; Editar</span>
+                                    <span class="delete-btn" onclick="eliminarRegistro('${key}')">&#10006; Eliminar</span>
+                                </td>
+                            </tr>`;
+                tableBody.innerHTML += row;
+            });
+        }
+        
+        window.eliminarRegistro = function (key) {
+            // Implementa la lógica para eliminar un registro usando la clave (key)
+            // Puedes mostrar un mensaje de confirmación antes de eliminar
+            if (confirm('¿Estás seguro de que quieres eliminar este registro?')) {
+                remove(ref(database, `Ushco/${key}`));
+            }
+        }
+        onValue(ref(database, 'Ushco'), mostrarDatosEnTabla);
+    </script>
+</body>
+</html>
