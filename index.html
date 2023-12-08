@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,10 +10,10 @@
 </head>
 
 <body>
-    <form class="row g-3 needs-validation" novalidate>
+    <form class="row g-3 needs-validation" onsubmit="event.preventDefault(); guardarRegistro()">
         <div class="col-md-4">
             <label for="validationCustom01" class="form-label">CEDULA</label>
-            <input type="text" class="form-control" id="validationCustom01" required>
+            <input type="text" class="form-control" id="validationCustom01" pattern="[0-9]+" required>
             <div class="valid-feedback">
                 Looks good!
             </div>
@@ -29,31 +27,31 @@
         </div>
         <div class="col-md-3">
             <label for="validationCustom03" class="form-label">GENERO</label>
-            <select class="form-select" id="validationCustom04" required>
-      <option selected disabled value="">Eli</option>
-      <option>H</option>
-      <option>M</option>
-    </select>
+            <select class="form-select" id="validationCustom03" required>
+                <option selected disabled value="">Eli</option>
+                <option>H</option>
+                <option>M</option>
+            </select>
             <div class="invalid-feedback">
                 Please select a valid state.
             </div>
         </div>
         <div class="col-md-3">
-            <label for="validationCustom04" class="form-label">AÑO DE ADMICION</label>
+            <label for="validationCustom04" class="form-label">AÑO DE ADMISION</label>
             <select class="form-select" id="validationCustom04" required>
-      <option selected disabled value="">Años</option>
-      <option>2020</option>
-      <option>2021</option>
-      <option>2022</option>
-      <option>2023</option>
-    </select>
+                <option selected disabled value="">Años</option>
+                <option>2020</option>
+                <option>2021</option>
+                <option>2022</option>
+                <option>2023</option>
+            </select>
             <div class="invalid-feedback">
                 Please select a valid state.
             </div>
         </div>
         <div class="col-md-4">
             <label for="validationCustom05" class="form-label">TELEFONO</label>
-            <input type="text" class="form-control" id="validationCustom02" required>
+            <input type="text" class="form-control" id="validationCustom05" pattern="[0-9]+" required>
             <div class="valid-feedback">
                 Looks good!
             </div>
@@ -68,11 +66,14 @@
                 </div>
             </div>
         </div>
-        <div>
-            <button onclick="guardarRegistro() ">Guardar</button>
-            <button onclick="cerrarDialogo() ">Cancelar</button>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary">Guardar</button>
         </div>
-        <table id="data-table">
+        <div class="col-md-2">
+            <button onclick="cerrarDialogo()" class="btn btn-secondary">Cancelar</button>
+        </div>
+    </form>
+    <table id="data-table">
         <thead>
             <tr>
                 <th>CEDULA</th>
@@ -104,7 +105,7 @@
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
         const tableBody = document.getElementById('table-body');
-        
+
         window.guardarRegistro = function () {
             const cedula = document.getElementById("validationCustom01").value;
             const nombre = document.getElementById("validationCustom02").value;
@@ -125,34 +126,32 @@
                 }
             );
 
-            document.getElementById("validationCustom01").value= "";
-            document.getElementById("validationCustom02").value= "";
-            document.getElementById("validationCustom03").value= "";
-            document.getElementById("validationCustom04").value= "";
-            document.getElementById("validationCustom05").value= "";
-            document.getElementById("validationCustomUsername").value= "";
+            document.getElementById("validationCustom01").value = "";
+            document.getElementById("validationCustom02").value = "";
+            document.getElementById("validationCustom03").value = "";
+            document.getElementById("validationCustom04").value = "";
+            document.getElementById("validationCustom05").value = "";
+            document.getElementById("validationCustomUsername").value = "";
         }
 
-        window.editarRegistro = function (key, cedula ,nombre,genero,ano,telefono,correo) {
-            
-            
-            document.getElementById("cedula-dialog").value= cedula;
-            document.getElementById("nombre-dialog").value= nombre;
-            document.getElementById("genero-dialog").value= genero;
-            document.getElementById("admision-dialog").value= ano;
-            document.getElementById("telefono-dialog").value= telefono;
-            document.getElementById("correo-dialog").value= correo;
+        window.editarRegistro = function (key, cedula, nombre, genero, ano, telefono, correo) {
 
-            
+            document.getElementById("cedula-dialog").value = cedula;
+            document.getElementById("nombre-dialog").value = nombre;
+            document.getElementById("genero-dialog").value = genero;
+            document.getElementById("admision-dialog").value = ano;
+            document.getElementById("telefono-dialog").value = telefono;
+            document.getElementById("correo-dialog").value = correo;
+
             const guardarButton = document.querySelector("#dialog-box button:first-of-type");
             guardarButton.innerHTML = "Actualizar";
             guardarButton.onclick = function () {
                 actualizarRegistro(key);
             };
 
-            
             abrirDialogo();
         }
+
         function actualizarRegistro(key) {
             const cedula = document.getElementById("cedula-dialog").value;
             const nombre = document.getElementById("nombre-dialog").value;
@@ -161,7 +160,6 @@
             const telefono = document.getElementById("telefono-dialog").value;
             const correo = document.getElementById("correo-dialog").value;
 
-            
             update(ref(database, `Ushco/${key}`), {
                 Cedula: cedula,
                 Nombre: nombre,
@@ -171,24 +169,21 @@
                 Correo: correo
             });
 
-            
             const guardarButton = document.querySelector("#dialog-box button:first-of-type");
             guardarButton.innerHTML = "Guardar";
             guardarButton.onclick = function () {
                 guardarRegistro();
             };
 
-            
             cerrarDialogo();
-            document.getElementById("cedula-dialog").value= "";
-            document.getElementById("nombre-dialog").value= "";
-            document.getElementById("genero-dialog").value= "";
-            document.getElementById("admision-dialog").value= "";
-            document.getElementById("telefono-dialog").value= "";
-            document.getElementById("correo-dialog").value= "";
+            document.getElementById("cedula-dialog").value = "";
+            document.getElementById("nombre-dialog").value = "";
+            document.getElementById("genero-dialog").value = "";
+            document.getElementById("admision-dialog").value = "";
+            document.getElementById("telefono-dialog").value = "";
+            document.getElementById("correo-dialog").value = "";
         }
-        
-        
+
         function mostrarDatosEnTabla(snapshot) {
             tableBody.innerHTML = '';
             snapshot.forEach((childSnapshot) => {
@@ -196,25 +191,26 @@
                 const key = childSnapshot.key;
                 const row = `<tr>
                     <td>${data.Cedula}</td>
-                                <td>${data.Nombre}</td>
-                                <td>${data.Genero}</td>
-                                <td>${data.Admision}</td>
-                                <td>${data.Telefono}</td>
-                                <td>${data.Correo}</td>
-                                <td>
-                                    <span class="edit-btn" onclick="editarRegistro('${key}', '${data.Cedula}', '${data.Nombre}', '${data.Genero}', '${data.Admision}', '${data.Telefono}', '${data.Correo}')">&#9998; Editar</span>
-                                    <span class="delete-btn" onclick="eliminarRegistro('${key}')">&#10006; Eliminar</span>
-                                </td>
-                            </tr>`;
+                    <td>${data.Nombre}</td>
+                    <td>${data.Genero}</td>
+                    <td>${data.Admision}</td>
+                    <td>${data.Telefono}</td>
+                    <td>${data.Correo}</td>
+                    <td>
+                        <span class="edit-btn" onclick="editarRegistro('${key}', '${data.Cedula}', '${data.Nombre}', '${data.Genero}', '${data.Admision}', '${data.Telefono}', '${data.Correo}')">&#9998; Editar</span>
+                        <span class="delete-btn" onclick="eliminarRegistro('${key}')">&#10006; Eliminar</span>
+                    </td>
+                </tr>`;
                 tableBody.innerHTML += row;
             });
         }
-        
+
         window.eliminarRegistro = function (key) {
             if (confirm('¿Estás seguro de que quieres eliminar este registro?')) {
                 remove(ref(database, `Ushco/${key}`));
             }
         }
+
         onValue(ref(database, 'Ushco'), mostrarDatosEnTabla);
     </script>
 </body>
