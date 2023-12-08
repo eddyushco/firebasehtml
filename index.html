@@ -15,14 +15,32 @@
         }
 
         #dialog-box {
-            background: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            text-align: center;
+        background: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        text-align: center;
+        position: relative;
+        }
+
+        #dialog-box div {
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        #dialog-box label {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
         }
 
         #dialog-box input {
-            margin-bottom: 10px;
+            padding: 5px;
+            margin-left: 80px; /* Ajusta este valor según sea necesario */
+        }
+
+        #dialog-box button {
+            margin-top: 10px;
         }
         #data-table {
             margin-top: 20px;
