@@ -62,20 +62,34 @@
     <!-- Cuadro de diálogo -->
     <div id="dialog-overlay">
         <div id="dialog-box">
-            <label for="cedula-dialog">Cedula:</label>
-            <input type="number" id="cedula-dialog">
-            <label for="nombre-dialog">Nombre:</label>
-            <input type="text" id="nombre-dialog">
-            <label for="genero-dialog">Genero:</label>
-            <input type="text" id="genero-dialog">
-            <label for="admision-dialog">Año de Admision:</label>
-            <input type="number" id="admision-dialog">
-            <label for="telefono-dialog">Telefono:</label>
-            <input type="number" id="telefono-dialog">
-            <label for="correo-dialog">Correo:</label>
-            <input type="text" id="correo-dialog">
-            <button onclick="guardarRegistro()">Guardar</button>
-            <button onclick="cerrarDialogo()">Cancelar</button>
+            <div>
+                <label for="cedula-dialog">Cedula:</label>
+                <input type="number" id="cedula-dialog">
+            </div>
+            <div>
+                <label for="nombre-dialog">Nombre:</label>
+                <input type="text" id="nombre-dialog">
+            </div>
+            <div>
+                <label for="genero-dialog">Genero:</label>
+                <input type="text" id="genero-dialog">
+            </div>
+            <div>
+                <label for="admision-dialog">Año de Admision:</label>
+                <input type="number" id="admision-dialog">
+            </div>
+            <div>
+                <label for="telefono-dialog">Telefono:</label>
+                <input type="number" id="telefono-dialog">
+            </div>
+            <div>
+                <label for="correo-dialog">Correo:</label>
+                <input type="text" id="correo-dialog">
+            </div>
+            <div>
+                <button onclick="guardarRegistro()">Guardar</button>
+                <button onclick="cerrarDialogo()">Cancelar</button>
+            </div>
         </div>
     </div>
     <table id="data-table">
@@ -111,16 +125,14 @@
         const database = getDatabase(app);
         const tableBody = document.getElementById('table-body');
         
-        // Función para abrir el cuadro de diálogo
         window.abrirDialogo = function () {
             document.getElementById('dialog-overlay').style.display = 'flex';
         }
 
-        // Función para cerrar el cuadro de diálogo
         window.cerrarDialogo = function () {
             document.getElementById('dialog-overlay').style.display = 'none';
         }
-        // Función para guardar el registro en Firebase
+        
         window.guardarRegistro = function () {
             const cedula = document.getElementById("cedula-dialog").value;
             const nombre = document.getElementById("nombre-dialog").value;
@@ -141,7 +153,7 @@
                 }
             );
 
-            // Cierra el cuadro de diálogo después de guardar
+            
             cerrarDialogo();
             document.getElementById("cedula-dialog").value= "";
             document.getElementById("nombre-dialog").value= "";
@@ -152,7 +164,7 @@
         }
 
         window.editarRegistro = function (key, cedula ,nombre,genero,ano,telefono,correo) {
-            // Rellena el cuadro de diálogo con los datos del registro a editar
+            
             
             document.getElementById("cedula-dialog").value= cedula;
             document.getElementById("nombre-dialog").value= nombre;
@@ -161,14 +173,14 @@
             document.getElementById("telefono-dialog").value= telefono;
             document.getElementById("correo-dialog").value= correo;
 
-            // Cambia la función del botón Guardar para que actualice en lugar de agregar
+            
             const guardarButton = document.querySelector("#dialog-box button:first-of-type");
             guardarButton.innerHTML = "Actualizar";
             guardarButton.onclick = function () {
                 actualizarRegistro(key);
             };
 
-            // Muestra el cuadro de diálogo
+            
             abrirDialogo();
         }
         function actualizarRegistro(key) {
@@ -179,7 +191,7 @@
             const telefono = document.getElementById("telefono-dialog").value;
             const correo = document.getElementById("correo-dialog").value;
 
-            // Actualiza los datos en la base de datos
+            
             update(ref(database, `Ushco/${key}`), {
                 Cedula: cedula,
                 Nombre: nombre,
@@ -189,14 +201,14 @@
                 Correo: correo
             });
 
-            // Restaura la función original del botón Guardar
+            
             const guardarButton = document.querySelector("#dialog-box button:first-of-type");
             guardarButton.innerHTML = "Guardar";
             guardarButton.onclick = function () {
                 guardarRegistro();
             };
 
-            // Cierra el cuadro de diálogo después de actualizar
+            
             cerrarDialogo();
             document.getElementById("cedula-dialog").value= "";
             document.getElementById("nombre-dialog").value= "";
@@ -229,8 +241,6 @@
         }
         
         window.eliminarRegistro = function (key) {
-            // Implementa la lógica para eliminar un registro usando la clave (key)
-            // Puedes mostrar un mensaje de confirmación antes de eliminar
             if (confirm('¿Estás seguro de que quieres eliminar este registro?')) {
                 remove(ref(database, `Ushco/${key}`));
             }
