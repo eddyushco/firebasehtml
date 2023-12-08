@@ -143,10 +143,15 @@
             document.getElementById("correo-dialog").value= "";
         }
 
-        window.editarRegistro = function (key, nombre, edad) {
+        window.editarRegistro = function (key, cedula ,nombre,genero,ano,telefono,correo) {
             // Rellena el cuadro de diálogo con los datos del registro a editar
-            document.getElementById("nombre-dialog").value = nombre;
-            document.getElementById("edad-dialog").value = edad;
+            
+            document.getElementById("cedula-dialog").value= cedula;
+            document.getElementById("nombre-dialog").value= nombre;
+            document.getElementById("genero-dialog").value= genero;
+            document.getElementById("admision-dialog").value= ano;
+            document.getElementById("telefono-dialog").value= telefono;
+            document.getElementById("correo-dialog").value= correo;
 
             // Cambia la función del botón Guardar para que actualice en lugar de agregar
             const guardarButton = document.querySelector("#dialog-box button:first-of-type");
@@ -159,13 +164,21 @@
             abrirDialogo();
         }
         function actualizarRegistro(key) {
+            const cedula = document.getElementById("cedula-dialog").value;
             const nombre = document.getElementById("nombre-dialog").value;
-            const edad = document.getElementById("edad-dialog").value;
+            const genero = document.getElementById("genero-dialog").value;
+            const ano = document.getElementById("admision-dialog").value;
+            const telefono = document.getElementById("telefono-dialog").value;
+            const correo = document.getElementById("correo-dialog").value;
 
             // Actualiza los datos en la base de datos
             update(ref(database, `Ushco/${key}`), {
-                name: nombre,
-                age: edad
+                Cedula: cedula,
+                Nombre: nombre,
+                Genero: genero,
+                Admision: ano,
+                Telefono: telefono,
+                 Correo: correo
             });
 
             // Restaura la función original del botón Guardar
@@ -177,8 +190,12 @@
 
             // Cierra el cuadro de diálogo después de actualizar
             cerrarDialogo();
-            document.getElementById("nombre-dialog").value = "";
-            document.getElementById("edad-dialog").value = "";
+            document.getElementById("cedula-dialog").value= "";
+            document.getElementById("nombre-dialog").value= "";
+            document.getElementById("genero-dialog").value= "";
+            document.getElementById("admision-dialog").value= "";
+            document.getElementById("telefono-dialog").value= "";
+            document.getElementById("correo-dialog").value= "";
         }
         
         
@@ -188,8 +205,12 @@
                 const data = childSnapshot.val();
                 const key = childSnapshot.key;
                 const row = `<tr>
-                                <td>${data.name}</td>
-                                <td>${data.age}</td>
+                                <td>${data.cedula}</td>
+                                <td>${data.nombre}</td>
+                                <td>${data.genero}</td>
+                                <td>${data.ano}</td>
+                                <td>${data.telefono}</td>
+                                <td>${data.correo}</td>
                                 <td>
                                     <span class="edit-btn" onclick="editarRegistro('${key}', '${data.name}', '${data.age}')">&#9998; Editar</span>
                                     <span class="delete-btn" onclick="eliminarRegistro('${key}')">&#10006; Eliminar</span>
