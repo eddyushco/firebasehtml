@@ -178,7 +178,7 @@
                 Genero: genero,
                 Admision: ano,
                 Telefono: telefono,
-                 Correo: correo
+                Correo: correo
             });
 
             // Restaura la función original del botón Guardar
@@ -212,7 +212,7 @@
                                 <td>${data.Telefono}</td>
                                 <td>${data.Correo}</td>
                                 <td>
-                                    <span class="edit-btn" onclick="editarRegistro('${key}', '${data.name}', '${data.age}')">&#9998; Editar</span>
+                                    <span class="edit-btn" onclick="editarRegistro('${key}', '${data.Cedula}', '${data.Nombre}', '${data.Genero}', '${data.Admision}', '${data.Telefono}', '${data.Correo}')">&#9998; Editar</span>
                                     <span class="delete-btn" onclick="eliminarRegistro('${key}')">&#10006; Eliminar</span>
                                 </td>
                             </tr>`;
