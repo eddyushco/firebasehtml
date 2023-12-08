@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="col-md-3">
-            <label for="validationCustom04" class="form-label">GENERO</label>
+            <label for="validationCustom03" class="form-label">GENERO</label>
             <select class="form-select" id="validationCustom04" required>
       <option selected disabled value="">Eli</option>
       <option>H</option>
@@ -52,7 +52,7 @@
             </div>
         </div>
         <div class="col-md-4">
-            <label for="validationCustom02" class="form-label">TELEFONO</label>
+            <label for="validationCustom05" class="form-label">TELEFONO</label>
             <input type="text" class="form-control" id="validationCustom02" required>
             <div class="valid-feedback">
                 Looks good!
@@ -108,9 +108,9 @@
         window.guardarRegistro = function () {
             const cedula = document.getElementById("validationCustom01").value;
             const nombre = document.getElementById("validationCustom02").value;
-            const genero = document.getElementById("validationCustom04").value;
-            const ano = document.getElementById("validationCustom05").value;
-            const telefono = document.getElementById("validationCustom02").value;
+            const genero = document.getElementById("validationCustom03").value;
+            const ano = document.getElementById("validationCustom04").value;
+            const telefono = document.getElementById("validationCustom05").value;
             const correo = document.getElementById("validationCustomUsername").value;
 
             push(
@@ -127,9 +127,9 @@
 
             document.getElementById("validationCustom01").value= "";
             document.getElementById("validationCustom02").value= "";
+            document.getElementById("validationCustom03").value= "";
             document.getElementById("validationCustom04").value= "";
             document.getElementById("validationCustom05").value= "";
-            document.getElementById("validationCustom02").value= "";
             document.getElementById("validationCustomUsername").value= "";
         }
 
