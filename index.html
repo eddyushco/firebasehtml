@@ -45,7 +45,7 @@
         <div class="col-md-4">
             <label for="validationCustom01" class="form-label">CEDULA</label>
             <input type="text" class="form-control" id="validationCustom01" pattern="[0-9]{10}" required>
-            
+
         </div>
         <div class="col-md-4">
             <label for="validationCustom02" class="form-label">NOMBRES</label>
@@ -57,11 +57,11 @@
         <div class="col-md-3">
             <label for="validationCustom03" class="form-label">GENERO</label>
             <select class="form-select" id="validationCustom03" required>
-                <option selected disabled value="">Eli</option>
+                <option selected disabled value="">....</option>
                 <option>Hombre</option>
                 <option>Mujer</option>
             </select>
-            
+
         </div>
         <div class="col-md-3">
             <label for="validationCustom04" class="form-label">FECHA DE ADMISION</label>
@@ -70,7 +70,7 @@
         <div class="col-md-4">
             <label for="validationCustom05" class="form-label">TELEFONO</label>
             <input type="text" class="form-control" id="validationCustom05" pattern="[0-9]{10}" required>
-            
+
         </div>
         <div class="col-md-4">
             <label for="validationCustomUsername" class="form-label">CORREO</label>
@@ -128,6 +128,10 @@
             const correo = document.getElementById("validationCustomUsername").value;
             const fecha = new Date(ano);
             const fe = `${fecha.getDate() +1}/${fecha.getMonth() + 1}/${fecha.getFullYear()}`;
+            if (!cedula || !nombre || !genero || !ano || !telefono || !correo) {
+                alert("Todos los campos son obligatorios. Por favor, complete todos los campos.");
+                return;
+            }
             push(
                 ref(database, 'Ushco'),
                 {
@@ -170,17 +174,23 @@
             const ano = document.getElementById("validationCustom04").value;
             const telefono = document.getElementById("validationCustom05").value;
             const correo = document.getElementById("validationCustomUsername").value;
-
+            const fecha = new Date(ano);
+            const fe = `${fecha.getDate() +1}/${fecha.getMonth() + 1}/${fecha.getFullYear()}`;
+            if (!cedula || !nombre || !genero || !ano || !telefono || !correo) {
+                alert("Todos los campos son obligatorios. Por favor, complete todos los campos.");
+                return;
+            }
             update(ref(database, `Ushco/${key}`), {
                 Cedula: cedula,
                 Nombre: nombre,
                 Genero: genero,
-                Admision: ano,
+                Admision: fe,
                 Telefono: telefono,
                 Correo: correo
             });
 
             const guardarButton = document.querySelector("button.btn-primary");
+
             guardarButton.innerHTML = "Guardar";
             guardarButton.onclick = function () {
                 guardarRegistro();
