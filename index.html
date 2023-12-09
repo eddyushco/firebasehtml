@@ -126,6 +126,8 @@
             const ano = document.getElementById("validationCustom04").value;
             const telefono = document.getElementById("validationCustom05").value;
             const correo = document.getElementById("validationCustomUsername").value;
+            const fecha = new Date(ano);
+            const fe = `${fecha.getDate()}/${fecha.getMonth() + 1}/${fecha.getFullYear()}`;
 
             push(
                 ref(database, 'Ushco'),
@@ -133,7 +135,7 @@
                     Cedula: cedula,
                     Nombre: nombre,
                     Genero: genero,
-                    Admision: ano,
+                    Admision: fe,
                     Telefono: telefono,
                     Correo: correo
                 }
