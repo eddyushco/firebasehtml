@@ -44,10 +44,8 @@
     <form class="row g-3 needs-validation" onsubmit="event.preventDefault(); guardarRegistro()">
         <div class="col-md-4">
             <label for="validationCustom01" class="form-label">CEDULA</label>
-            <input type="text" class="form-control" id="validationCustom01" pattern="[0-9]{10}" required>
-            <div class="valid-feedback">
-                Looks good!
-            </div>
+            <input type="text" class="form-control" id="validationCustom01" pattern="[0-9]{10,}" required>
+            
         </div>
         <div class="col-md-4">
             <label for="validationCustom02" class="form-label">NOMBRES</label>
@@ -63,9 +61,7 @@
                 <option>H</option>
                 <option>M</option>
             </select>
-            <div class="invalid-feedback">
-                Please select a valid state.
-            </div>
+            
         </div>
         <div class="col-md-3">
             <label for="validationCustom04" class="form-label">AÑO DE ADMISION</label>
@@ -76,16 +72,12 @@
                 <option>2022</option>
                 <option>2023</option>
             </select>
-            <div class="invalid-feedback">
-                Please select a valid state.
-            </div>
+           
         </div>
         <div class="col-md-4">
             <label for="validationCustom05" class="form-label">TELEFONO</label>
-            <input type="text" class="form-control" id="validationCustom05" pattern="[0-9]{10}" required>
-            <div class="valid-feedback">
-                Looks good!
-            </div>
+            <input type="text" class="form-control" id="validationCustom05" pattern="[0-9]{10,}" required>
+            
         </div>
         <div class="col-md-4">
             <label for="validationCustomUsername" class="form-label">CORREO</label>
