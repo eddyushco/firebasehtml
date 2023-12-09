@@ -127,7 +127,11 @@
             const telefono = document.getElementById("validationCustom05").value;
             const correo = document.getElementById("validationCustomUsername").value;
             const fecha = new Date(ano);
-            const fe = `${fecha.getDate()}/${fecha.getMonth() + 1}/${fecha.getFullYear()}`;
+            const dia = fecha.getDate();
+            const mes = fecha.getMonth() + 1; // Ten en cuenta que los meses son de 0 a 11
+            const anio = fecha.getFullYear();
+
+            const fe = `${dia}/${mes}/${anio}`;
             push(
                 ref(database, 'Ushco'),
                 {
