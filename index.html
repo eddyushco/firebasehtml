@@ -37,25 +37,28 @@
             background-image: url('https://us.123rf.com/450wm/natrot/natrot2202/natrot220200067/181942485-escaparate-de-productos-fondo-de-sala-de-estudio-negro-usar-como-montaje-para-exhibici%C3%B3n-de.jpg?ver=6');
             background-size: cover;
         }
+        .white-text {
+            color: white;
+        }
     </style>
 </head>
 
 <body>
     <form class="row g-3 needs-validation" onsubmit="event.preventDefault(); guardarRegistro()">
         <div class="col-md-4">
-            <label for="validationCustom01" class="form-label">CEDULA</label>
+            <label for="validationCustom01" class="form-label white-text">CEDULA</label>
             <input type="text" class="form-control" id="validationCustom01" pattern="[0-9]{10}" required>
 
         </div>
         <div class="col-md-4">
-            <label for="validationCustom02" class="form-label">NOMBRES</label>
+            <label for="validationCustom02" class="form-label white-text">NOMBRES</label>
             <input type="text" class="form-control" id="validationCustom02" required>
             <div class="valid-feedback">
                 Looks good!
             </div>
         </div>
         <div class="col-md-3">
-            <label for="validationCustom03" class="form-label">GENERO</label>
+            <label for="validationCustom03" class="form-label white-text">GENERO</label>
             <select class="form-select" id="validationCustom03" required>
                 <option selected disabled value="">....</option>
                 <option>Hombre</option>
@@ -64,16 +67,16 @@
 
         </div>
         <div class="col-md-3">
-            <label for="validationCustom04" class="form-label">FECHA DE ADMISION</label>
+            <label for="validationCustom04" class="form-label white-text">FECHA DE ADMISION</label>
             <input type="date" class="form-control" id="validationCustom04" required>
         </div>
         <div class="col-md-4">
-            <label for="validationCustom05" class="form-label">TELEFONO</label>
+            <label for="validationCustom05" class="form-label white-text">TELEFONO</label>
             <input type="text" class="form-control" id="validationCustom05" pattern="[0-9]{10}" required>
 
         </div>
         <div class="col-md-4">
-            <label for="validationCustomUsername" class="form-label">CORREO</label>
+            <label for="validationCustomUsername" class="form-label white-text">CORREO</label>
             <div class="input-group has-validation">
                 <span class="input-group-text" id="inputGroupPrepend">@</span>
                 <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
