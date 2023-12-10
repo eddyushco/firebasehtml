@@ -40,11 +40,15 @@
         .white-text {
             color: white;
         }
+        .custom-width-form {
+            width: 80%;
+            margin: auto; 
+        }
     </style>
 </head>
 
 <body>
-    <form class="row g-3 needs-validation" onsubmit="event.preventDefault(); guardarRegistro()">
+    <form class="row g-3 needs-validation custom-width-form" onsubmit="event.preventDefault(); guardarRegistro()">
         <div class="col-md-4">
             <label for="validationCustom01" class="form-label white-text">CEDULA</label>
             <input type="text" class="form-control" id="validationCustom01" pattern="[0-9]{10}" required>
