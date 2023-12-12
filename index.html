@@ -56,7 +56,7 @@
     <form class="row g-3 needs-validation custom-width-form" onsubmit="event.preventDefault(); guardarRegistro()">
         <div class="col-md-4">
             <label for="validationCustom01" class="form-label white-text">CEDULA:</label>
-            <input type="text" class="form-control" id="validationCustom01" pattern="[0-9]{10}" required>
+            <input type="number" class="form-control" id="validationCustom01" maxlength="50" required>
 
         </div>
         <div class="col-md-4">
@@ -81,7 +81,7 @@
         </div>
         <div class="col-md-4">
             <label for="validationCustom05" class="form-label white-text">TELEFONO:</label>
-            <input type="text" class="form-control" id="validationCustom05" maxlength="10" required>
+            <input type="number" class="form-control" id="validationCustom05" maxlength="10" required>
 
         </div>
         <div class="col-md-4">
